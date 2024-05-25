@@ -9,13 +9,14 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 ## Examples
 
 <picture>
-    <source media="(perfers-color-scheme: dark)" srcset="./docs/dmktruss.svg">
-    <source media="(perfers-color-scheme: light)" src="./docs/lmktruss.svg">
+    <source media="(perfers-color-scheme: dark)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/dmktruss.svg">
+    <source media="(perfers-color-scheme: light)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/lmktruss.svg">
 </picture>
 
 <picture>
-    <source media="(perfers-color-scheme: dark)" src="/docs/dmwarrentruss.svg">
-    <source media="(perfers-color-scheme: light)" srcset="/docs/lmwarrentruss.svg">
+    <source media="(perfers-color-scheme: dark)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/dmwarrentruss.svg">
+    <source media="(perfers-color-scheme: light)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/lmwarrentruss.svg">
+
 </picture>
 
 ## Configuration
