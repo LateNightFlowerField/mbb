@@ -1,6 +1,6 @@
 # mbb - A Model Bridge Building Helper
 
-This porgram aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 5 types of trusses with customizable parameters. It makes the process of desinging a model bridge fast and easy.
+This program aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 5 types of trusses with customizable parameters. It makes the process of designing a model bridge fast and easy.
 
 
 ## Examples
@@ -27,7 +27,7 @@ mbb has a number of configurable options with more to come.
 
 - [ ] Configure overhang on both sides
 - [ ] Create bridge by height and length
-- [ ] Individul part diagrams and counts
+- [ ] Individual part diagrams and counts
 - [ ] Micro-configuration of bridge
 - [ ] Diagrams of side connections (automatic?)
 - [ ] More truss types, and possibly arches
@@ -36,6 +36,6 @@ mbb has a number of configurable options with more to come.
 - [ ] Stress simulations
 - [ ] Add glue weight calculations
 - [ ] Add estimated build time
-- [ ] Add auto image and document genoration
-- [ ] Improve asethtics  
+- [ ] Add auto image and document generation
+- [ ] Improve aesthetics  
 
