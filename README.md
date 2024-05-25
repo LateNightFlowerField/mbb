@@ -16,7 +16,7 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/dmwarrentruss.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/lmwarrentruss.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/lmwarrentruss.svg">
    <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
 </picture>
 
