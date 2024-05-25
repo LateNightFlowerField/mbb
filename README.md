@@ -1,4 +1,6 @@
 # mbb - A Model Bridge Building Helper
+[!NOTE]
+This project is still being developed, information here may be inaccurate.
 
 This program aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 5 types of trusses with customizable parameters. It makes the process of designing a model bridge fast and easy.
 
@@ -39,9 +41,12 @@ mbb has a number of configurable options with more to come.
 - [ ] Add auto image and document generation
 - [ ] Improve aesthetics  
 
-# FAQ
+## FAQ
 
-1. Why use python and latex instead of x tool or langauge?
+1. Why use python and latex instead of x tool or language?
     
     no.
-    <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale digrams relys on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
+    <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
+2. What is your favorite type of bridge?
+    I really like the warren because of its simplicity and symmetry.
+
