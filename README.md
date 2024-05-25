@@ -39,3 +39,8 @@ mbb has a number of configurable options with more to come.
 - [ ] Add auto image and document generation
 - [ ] Improve aesthetics  
 
+# FAQ
+
+1. Why use python and latex instead of x tool or langauge?
+    no.
+    <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale digrams relys on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
