@@ -11,6 +11,7 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/dmktruss.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/lmktruss.svg">
+<img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
 </picture>
 
 <picture>
