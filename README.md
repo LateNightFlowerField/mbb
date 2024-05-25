@@ -9,25 +9,16 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 ## Examples
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/dmktruss.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/lmktruss.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/dmktruss.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/lmktruss.svg">
 <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: light)" srcset="docs/dmwarrentruss.png">
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/LateNightFlowerField/mbb/blob/71a00f5cd785470699c2842f13d1b62599967710/docs/dmwarrentruss.png">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/dmwarrentruss.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/lmwarrentruss.png">
    <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
 </picture>
-
-
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/25423296/163456776-7f95b81a-f1ed-45f7-b7ab-8fa810d529fa.png">
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png">
-  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://user-images.githubusercontent.com/25423296/163456779-a8556205-d0a5-45e2-ac17-42d089e3c3f8.png">
-</picture>
-
-
 
 ## Configuration
 
