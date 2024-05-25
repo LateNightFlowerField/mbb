@@ -13,7 +13,7 @@ K Truss
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/dmktruss.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/lmktruss.svg">
-<img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
+<img alt="The outline of a k truss bridge." src="">
 </picture>
 
 Warren Truss
@@ -21,7 +21,7 @@ Warren Truss
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/dmwarrentruss.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/lmwarrentruss.svg">
-   <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="">
+   <img alt="The outline of a warren truss bridge." src="">
 </picture>
 
 ## Configuration
@@ -58,8 +58,7 @@ mbb has a number of configurable options with more to come.
 
 1. Why use python and latex instead of x tool or language?
     
-    no.
-    <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
+    no. <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
 2. What is your favorite type of bridge?
     I really like the warren because of its simplicity and symmetry.
 
