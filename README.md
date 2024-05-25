@@ -1,6 +1,7 @@
 # mbb - A Model Bridge Building Helper
-[!NOTE]
-This project is still being developed, information here may be inaccurate.
+
+> [!NOTE]
+> This project is still being developed, information here may be inaccurate.
 
 This program aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 5 types of trusses with customizable parameters. It makes the process of designing a model bridge fast and easy.
 
