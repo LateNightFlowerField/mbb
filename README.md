@@ -9,13 +9,13 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 ## Examples
 
 <picture>
-    <source media="(perfers-color-scheme: dark)" src="docs/dmktruss.svg">
-    <source media="(perfers-color-scheme: light)" src="docs/lmktruss.svg">
+    <source media="(perfers-color-scheme: dark)" srcset="./docs/dmktruss.svg">
+    <source media="(perfers-color-scheme: light)" src="./docs/lmktruss.svg">
 </picture>
 
 <picture>
-    <source media="(perfers-color-scheme: dark)" src="docs/dmwarrentruss.svg">
-    <source media="(perfers-color-scheme: light)" src="docs/lmwarrentruss.svg">
+    <source media="(perfers-color-scheme: dark)" src="/docs/dmwarrentruss.svg">
+    <source media="(perfers-color-scheme: light)" srcset="/docs/lmwarrentruss.svg">
 </picture>
 
 ## Configuration
