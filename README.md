@@ -16,6 +16,7 @@ This program aids in creating to-scale diagrams of model bridges. It creates fig
 <picture>
   <source media="(perfers-color-scheme: dark)" srcset="docs/dmwarrentruss.png">
   <source media="(perfers-color-scheme: light)" srcset="https://github.com/LateNightFlowerField/mbb/blob/a9c18473ed23365f7afc9e6b82b49533da8a40e2/docs/lmwarrentruss.svg">
+  <img alt="AGGGG">
 </picture>
 
 
