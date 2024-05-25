@@ -13,7 +13,7 @@ This porgram aids in creating to-scale diagrams of model bridges. It creates fig
 
 mbb has a number of configurable options with more to come.
 
-- Truss type
+- Truss type (Warren, Howe, Pratt, Bailey, K)
 - Length of bridge
 - Number of segments
 - Overhang
