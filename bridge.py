@@ -1,3 +1,4 @@
+from sympy.plotting.plot import flat
 import tikz
 from math import sin, cos, pi, sqrt, atan
 import argparse
@@ -85,7 +86,7 @@ def bailey() -> None:
     if not args.no_description:
         pic.path(figdesc("Bailey Truss",pieces,volume,weight,woodlength))
 
-def pratt() -> None:
+def howe() -> None:
     flatjoint = width/cos(pi/4)
     ljoint = width*cos(pi/4)
     triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
@@ -155,7 +156,7 @@ def pratt() -> None:
     if not args.no_description:
         pic.path(figdesc("Pratt Truss",pieces,volume,weight,woodlength))
 
-def howe() -> None:
+def pratt() -> None:
     flatjoint = width/cos(pi/4)
     ljoint = width*cos(pi/4)
     triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
@@ -387,9 +388,131 @@ def k() -> None:
     if not args.no_description:
         pic.path(figdesc("K Truss",pieces,volume,weight,woodlength))
 
+def baltimore() -> None:
+    flatjoint = width/cos(pi/4)
+    ljoint = width*cos(pi/4)
+    triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
+    seglen = triside + ljoint
+    toplen = length-2*(flatjoint+triside-ljoint)
+    adjdist = (segments/2-1)*(triside+ljoint+width)
+
+    pieces = 5 + (segments-2)*2
+    area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-pow(triside,2)*(segments-1))
+    volume = area*width
+    weight = volume*wooddensity
+    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))
+    #Bottom Beam
+    pic.draw(tikz.line([(-lover,0),
+                        (length+rover,0),
+                        (length+rover,width),
+                        (-lover,width),
+                        tikz.cycle()]),opt=globalopt())
+
+    #Left End Post
+    pic.draw(tikz.line([(0,width),
+                        (seglen,width+seglen),
+                        (seglen+ljoint,width+seglen),
+                        (seglen+ljoint,width+seglen-ljoint),
+                        (flatjoint,width),
+                        tikz.cycle()]),opt=globalopt())
+    #Left Post Small diagonal
+    pic.draw(tikz.line([(flatjoint+triside,width),
+                        (flatjoint+triside,width+ljoint),
+                        (flatjoint+triside-seglen/2+ljoint,width+seglen/2),
+                        (flatjoint+triside-seglen/2,width+seglen/2-ljoint),
+                        (flatjoint+triside-ljoint,width),
+                        tikz.cycle()]),opt=globalopt())
+    #Left post beam
+    pic.draw(tikz.line([(flatjoint+triside-seglen/2-width/2,width),
+                        (flatjoint+triside-seglen/2-width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                        (flatjoint+triside-seglen/2,width+seglen/2-ljoint),
+                        (flatjoint+triside-seglen/2+width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                        (flatjoint+triside-seglen/2+width/2,width),
+                        tikz.cycle()]))
+
+    #Right End Post
+    pic.draw(tikz.line([(length,width),
+                        (length-seglen,width+seglen),
+                        (length-seglen-ljoint,width+seglen),
+                        (length-seglen-ljoint,width+seglen-ljoint),
+                        (length-flatjoint,width),
+                        tikz.cycle()]),opt=globalopt())
+    #Right Post Small diagonal
+    pic.draw(tikz.line([(length-flatjoint-triside,width),
+                        (length-flatjoint-triside,width+ljoint),
+                        (length-flatjoint-triside+seglen/2-ljoint,width+seglen/2),
+                        (length-flatjoint-triside+seglen/2,width+seglen/2-ljoint),
+                        (length-flatjoint-triside+ljoint,width),
+                        tikz.cycle()]),opt=globalopt())
+    #Right post beam
+    pic.draw(tikz.line([(length-flatjoint-triside+seglen/2+width/2,width),
+                        (length-flatjoint-triside+seglen/2+width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                        (length-flatjoint-triside+seglen/2,width+seglen/2-ljoint),
+                        (length-flatjoint-triside+seglen/2-width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                        (length-flatjoint-triside+seglen/2-width/2,width),
+                        tikz.cycle()]))
+    #Beams
+    for segnum in range(segments-1):
+        offset = (triside+width+ljoint)*segnum+flatjoint+triside
+        pic.draw(tikz.line([(offset,width),
+                            (offset,width+seglen),
+                            (offset+width,width+seglen),
+                            (offset+width,width),
+                            tikz.cycle()]),opt=globalopt())
+    #Diagonal Beams
+    for segnum in range(segments//2-1):
+        offset = flatjoint+triside+width+ljoint+segnum*(triside+width+ljoint)+adjdist
+        pic.draw(tikz.line([(offset,width),
+                            (offset+triside,width+triside),
+                            (offset+triside,width+triside+ljoint),
+                            (offset+triside-ljoint,width+triside+ljoint),
+                            (offset-ljoint,width+ljoint),
+                            (offset-ljoint,width),
+                            tikz.cycle()]),opt=globalopt())
+        pic.draw(tikz.line([(length-offset,width),
+                            (length-offset-triside,width+triside),
+                            (length-offset-triside,width+triside+ljoint),
+                            (length-offset-triside+ljoint,width+triside+ljoint),
+                            (length-offset+ljoint,width+ljoint),
+                            (length-offset+ljoint,width),
+                            tikz.cycle()]),opt=globalopt())
+    #double diagonals
+    for segnum in range(segments//2-1):
+        offset = flatjoint+triside+width+segnum*(seglen+width)
+        pic.draw(tikz.line([(offset,width),
+                            (offset,width+ljoint),
+                            (offset+seglen/2-ljoint,width+seglen/2),
+                            (offset+seglen/2,width+seglen/2-ljoint),
+                            (offset+ljoint,width),
+                            tikz.cycle()]),opt=globalopt())
+        pic.draw(tikz.line([(length-offset,width),
+                            (length-offset,width+ljoint),
+                            (length-offset-seglen/2+ljoint,width+seglen/2),
+                            (length-offset-seglen/2,width+seglen/2-ljoint),
+                            (length-offset-ljoint,width),
+                            tikz.cycle()]),opt=globalopt())
+    #Small Beams
+    for segnum in range(segments-2):
+        offset = flatjoint+triside+width+seglen/2-width/2+segnum*(seglen+width)
+        pic.draw(tikz.line([(offset,width),
+                            (offset,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                            (offset+width/2,width+seglen/2-ljoint),
+                            (offset+width,width+seglen/2-ljoint-ljoint*cos(pi/4)),
+                            (offset+width,width),
+                            tikz.cycle()]),opt=globalopt())
+    #Top Beam
+    pic.draw(tikz.line([(flatjoint+triside-ljoint,width+triside+ljoint),
+                        (flatjoint+triside-ljoint+toplen,width+triside+ljoint),
+                        (flatjoint+triside-ljoint+toplen,width+triside+ljoint+width),
+                        (flatjoint+triside-ljoint,width+triside+ljoint+width),
+                        tikz.cycle()]),opt=globalopt())
+    if not args.no_description:
+        pic.path(figdesc("Baltimore",pieces,volume,weight,woodlength))
+
+
 if __name__ == "__main__":
-    bridge_types = ['howe','warren','pratt','bailey','k']
-    bridge_map = {'howe':howe, 'warren':warren, 'pratt':pratt, 'bailey':bailey,'k':k}
+    bridge_types = ['howe','warren','pratt','bailey','k','baltimore']
+    bridge_map = {'howe':howe, 'warren':warren, 'pratt':pratt, 'bailey':bailey,'k':k, 'baltimore':baltimore}
 
     parser = argparse.ArgumentParser(prog='mmb',description='Create scale diagrams for bridges.')
     parser.add_argument('-t','--bridge',required=True,type=str, help='type of bridge')
