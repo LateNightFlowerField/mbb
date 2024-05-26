@@ -13,7 +13,7 @@ K Truss
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/dmktruss.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/lmktruss.svg">
-<img alt="The outline of a k truss bridge." src="">
+<img alt="The outline of a K truss bridge." src="">
 </picture>
 
 Warren Truss
