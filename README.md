@@ -58,7 +58,7 @@ mbb has a number of configurable options with more to come.
 
 1. Why use python and latex instead of x tool or language?
     
-    no. <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
-2. What is your favorite type of bridge?
+    Because. <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
+2. What is your favorite type of bridge? <br/>
     I really like the warren because of its simplicity and symmetry.
 
