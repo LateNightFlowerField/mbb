@@ -154,7 +154,7 @@ def howe() -> None:
                         (flatjoint+triside-ljoint,width+triside+ljoint+width),
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
-        pic.path(figdesc("Pratt Truss",pieces,volume,weight,woodlength))
+        pic.path(figdesc("Howe Truss",pieces,volume,weight,woodlength))
 
 def pratt() -> None:
     flatjoint = width/cos(pi/4)
@@ -225,7 +225,7 @@ def pratt() -> None:
                         (flatjoint+triside-ljoint,width+triside+ljoint+width),
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
-        pic.path(figdesc("Howe Truss",pieces,volume,weight,woodlength))
+        pic.path(figdesc("Pratt Truss",pieces,volume,weight,woodlength))
 
 def warren() -> None:
     ljoint = width/(sin(pi/3)+sin(pi/6))
@@ -396,8 +396,8 @@ def baltimore() -> None:
     toplen = length-2*(flatjoint+triside-ljoint)
     adjdist = (segments/2-1)*(triside+ljoint+width)
 
-    pieces = 5 + (segments-2)*2
-    area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-pow(triside,2)*(segments-1))
+    pieces = 5 + (segments-2)*2+2*segments
+    area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-(segments-2)*pow(triside,2)*0.5-segments*pow(triside-ljoint,2)/4-segments*pow((triside-ljoint-width)/2,2))
     volume = area*width
     weight = volume*wooddensity
     woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))
@@ -428,7 +428,7 @@ def baltimore() -> None:
                         (flatjoint+triside-seglen/2,width+seglen/2-ljoint),
                         (flatjoint+triside-seglen/2+width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
                         (flatjoint+triside-seglen/2+width/2,width),
-                        tikz.cycle()]))
+                        tikz.cycle()]),opt=globalopt())
 
     #Right End Post
     pic.draw(tikz.line([(length,width),
@@ -450,7 +450,7 @@ def baltimore() -> None:
                         (length-flatjoint-triside+seglen/2,width+seglen/2-ljoint),
                         (length-flatjoint-triside+seglen/2-width/2,width+seglen/2-ljoint-ljoint*cos(pi/4)),
                         (length-flatjoint-triside+seglen/2-width/2,width),
-                        tikz.cycle()]))
+                        tikz.cycle()]),opt=globalopt())
     #Beams
     for segnum in range(segments-1):
         offset = (triside+width+ljoint)*segnum+flatjoint+triside
