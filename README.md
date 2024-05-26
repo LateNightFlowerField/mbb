@@ -40,7 +40,7 @@ mbb has a number of configurable options with more to come.
 
 ## Plans
 
-- [ ] Configure overhang on both sides
+- [x] Configure overhang on both sides
 - [ ] Create bridge by height and length
 - [ ] Individual part diagrams and counts
 - [ ] Micro-configuration of bridge
