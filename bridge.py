@@ -86,6 +86,8 @@ def bailey() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("Bailey Truss",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def howe() -> None:
     flatjoint = width/cos(pi/4)
@@ -156,6 +158,8 @@ def howe() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("Howe Truss",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def pratt() -> None:
     flatjoint = width/cos(pi/4)
@@ -227,6 +231,8 @@ def pratt() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("Pratt Truss",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def warren() -> None:
     ljoint = width/(sin(pi/3)+sin(pi/6))
@@ -291,6 +297,8 @@ def warren() -> None:
 
     if not args.no_description:
         pic.path(figdesc("Warren Truss",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def k() -> None:
     bigt = atan(ratio)
@@ -388,6 +396,8 @@ def k() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("K Truss",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def baltimore() -> None:
     flatjoint = width/cos(pi/4)
@@ -509,11 +519,13 @@ def baltimore() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("Baltimore",pieces,volume,weight,woodlength))
+    if spill:
+        print(locals())
 
 def supports(spacing, height, direction):
     for segnum in range(segments+1):
         offset = segnum*spacing
-        pic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opts=globalopt())
+        pic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opt=globalopt())
     x = sympy.symbols('x')
     meq = sympy.Eq((ssin(satan((height-x)/(spacing-x-width)))+scos(satan((height-x)/(spacing-x-width))))*x,width)
     suls = sympy.solveset(meq,x,domain=sympy.S.Reals)
@@ -521,9 +533,11 @@ def supports(spacing, height, direction):
     for segnum in range(segments):
         offset = segnum*spacing+width
         if direction == 1:
-            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]),opts=globalopt())
+            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]),opt=globalopt())
         if direction == -1:
-            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]),opts=globalopt())
+            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]),opt=globalopt())
+    if spill:
+        print(locals())
 
 
 
@@ -547,6 +561,7 @@ if __name__ == "__main__":
     parser.add_argument('--supports',action='store_true',help='draw support structure')
     parser.add_argument('-v','--height',default=6.0,type=float,help='height of structure, currently only works for supports')
     parser.add_argument('-x','--direction',default=1,type=int,choices=[-1,1],help='which way the support connect')
+    parser.add_argument('-D','--debug',default=0,help='makes functions print their locals, useful for getting extra stats')
 
     args = parser.parse_args()
 
@@ -567,6 +582,7 @@ if __name__ == "__main__":
     wooddensity = args.density
     bonus_weight = args.weight_per_piece
     bonus_length = args.length_per_piece
+    spill = args.debug
 
     pic = tikz.Picture()
     if args.bridge:
