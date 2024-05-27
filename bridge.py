@@ -26,8 +26,8 @@ def bailey() -> None:
     pieces = 3+5*segments
     area = width*(length+lover+rover)+length*width+seglen*length-segments*pow(triside*2,2)
     volume = area*width
-    weight = volume * wooddensity
-    woodlength = 2*length+lover+rover+seglen*(segments+1)+4*segments*(cos(pi/4)*ljoint*2+triside/cos(pi/4))
+    weight = volume * wooddensity + bonus_weight * pieces
+    woodlength = 2*length+lover+rover+seglen*(segments+1)+4*segments*(cos(pi/4)*ljoint*2+triside/cos(pi/4)) + bonus_length * pieces
     #Bottom Beam
     pic.draw(tikz.line([(0-lover,0),
                         (length+rover,0),
@@ -96,8 +96,8 @@ def howe() -> None:
     pieces = 5 + (segments-2)*2
     area = (length+lover+rover)*width+toplen*width+0.5*(toplen+length)*seglen-pow(triside,2)*(segments-1)
     volume = area*width
-    weight = volume*wooddensity
-    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))
+    weight = volume*wooddensity + bonus_weight*pieces
+    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4)) + bonus_length*pieces
 
     #Bottom Beam
     pic.draw(tikz.line([(-lover,0),
@@ -168,8 +168,8 @@ def pratt() -> None:
     pieces = 5 + (segments-2)*2
     area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-pow(triside,2)*(segments-1))
     volume = area*width
-    weight = volume*wooddensity
-    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))
+    weight = volume*wooddensity + bonus_weight*pieces
+    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4)) + bonus_length*pieces
     #Bottom Beam
     pic.draw(tikz.line([(-lover,0),
                         (length+rover,0),
@@ -238,8 +238,8 @@ def warren() -> None:
     pieces = 2+segments*2
     area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*(triheight+ljoint)-(sqrt(3)/4)*pow(triside,2)*(segments*2-1))
     volume = area*width
-    weight = volume*wooddensity
-    woodlength = lover+rover+length+toplen+2*segments*(triside+ljoint*(cos(pi/6)+sin(pi/6)))
+    weight = volume*wooddensity + bonus_weight*pieces
+    woodlength = lover+rover+length+toplen+2*segments*(triside+ljoint*(cos(pi/6)+sin(pi/6))) + bonus_length*pieces
 
     #Bottom Beam
     pic.draw(tikz.line([(0-lover,0),
@@ -305,14 +305,14 @@ def k() -> None:
     pieces = 4+segments-1+(segments-2)*2
     area = (length+lover+rover)*width+(length-2*seglen+bljoint*2)*width+0.5*(length+length-2*seglen+2*bljoint)*height-(seglen-ljoint)*(height-2*ljoint)*(segments-2)-(seglen-flatjoint)*(height-bljoint)
     volume = area * width
-    weight = volume * wooddensity
+    weight = volume * wooddensity + bonus_weight*pieces
     botang = atan((height/2-ljoint)/(seglen-ljoint))
     bigbotang = atan((height-bljoint)/(seglen-flatjoint))
     bigsegend = bljoint/sin(bigbotang)+cos(bigbotang)*bljoint
     segend = (sin(botang)+cos(botang))*ljoint
     trihyp = sqrt(pow(height/2-ljoint,2)+pow(seglen-ljoint,2))
     bigtrihyp = sqrt(pow(height-bljoint,2)+pow(seglen-flatjoint,2))
-    woodlength = length+lover+rover+length-2*seglen+2*bljoint+(segments-2)*2*(trihyp+segend)+height*(segments-1)+2*(bigtrihyp+bigsegend)
+    woodlength = length+lover+rover+length-2*seglen+2*bljoint+(segments-2)*2*(trihyp+segend)+height*(segments-1)+2*(bigtrihyp+bigsegend) + bonus_length*pieces
 
     #Bottom Beam
     pic.draw(tikz.line([(-lover,0),
@@ -400,8 +400,8 @@ def baltimore() -> None:
     pieces = 5 + (segments-2)*2+2*segments
     area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-(segments-2)*pow(triside,2)*0.5-segments*pow(triside-ljoint,2)/4-segments*pow((triside-ljoint-width)/2,2))
     volume = area*width
-    weight = volume*wooddensity
-    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))+ljoint*sin(pi/4)*segments*2+segments*(seglen/2-ljoint-ljoint*cos(pi/4))+segments*((triside/2-width/2-ljoint/2)/cos(pi/4))
+    weight = volume*wooddensity + bonus_weight*pieces
+    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))+ljoint*sin(pi/4)*segments*2+segments*(seglen/2-ljoint-ljoint*cos(pi/4))+segments*((triside/2-width/2-ljoint/2)/cos(pi/4)) + bonus_length*pieces
     #Bottom Beam
     pic.draw(tikz.line([(-lover,0),
                         (length+rover,0),
@@ -526,6 +526,8 @@ if __name__ == "__main__":
     parser.add_argument('-i','--write-image',default='', type=str, help='file to write to')
     parser.add_argument('-d','--density',default=0.15,type=float,help='density of material, used for calculating weight')
     parser.add_argument('--no-description',action='store_true', help='disable stats below diagram')
+    parser.add_argument('-S','--weight-per-piece',type=float, default=0.0, help='adds a configureble amount of weight per piece')
+    parser.add_argument('-L','--length-per-piece',type=float, default=0.0, help='adds a configureble amount of needed material per piece')
 
     args = parser.parse_args()
     width = args.width
@@ -538,6 +540,8 @@ if __name__ == "__main__":
         rover = args.overhang[0]
     ratio = args.ratio
     wooddensity = args.density
+    bonus_weight = args.weight_per_piece
+    bonus_length = args.length_per_piece
 
     if args.bridge.lower() in ['howe','pratt','k','baltimore'] and args.segments not in range(2,16,2):
         print("Warning! Segment number is odd.")
