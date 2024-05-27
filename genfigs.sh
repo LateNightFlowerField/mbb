@@ -1,5 +1,5 @@
 over=0.5
-opts='pattern=crosshatch, pattern color=white, line width=.3mm'
+opts='pattern=crosshatch, pattern color=gray, line width=.3mm'
 python bridge.py -t bailey -s 7 -o $over -O "$opts" > figures/bailey7.tex
 python bridge.py -t bailey -s 6 -o $over -O "$opts" > figures/bailey6.tex
 python bridge.py -t bailey -s 5 -o $over -O "$opts" > figures/bailey5.tex
