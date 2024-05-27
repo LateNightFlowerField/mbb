@@ -52,7 +52,8 @@ mbb has a number of configurable options with more to come.
 - [ ] Add glue weight calculations
 - [ ] Add estimated build time
 - [ ] Add auto image and document generation
-- [ ] Improve aesthetics  
+- [ ] Improve aesthetics 
+- [ ] Refactor to use bridge and piece classes and objects
 
 ## FAQ
 
