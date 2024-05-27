@@ -9,6 +9,37 @@ from sympy import sin as ssin
 from sympy import cos as scos
 
 
+class Segment():
+    def __init__(self,name,vectors,offset,opts):
+        self.name = name
+        self.vectors = vectors
+        self.offset = offset
+        self.opts = opts
+
+class StaightBeam(Segment):
+    def __init__(self, name, offset, opts, length, width):
+        super().__init__(name, [], offset, opts)
+        self.vectors = [(0,0),(length,0),(length,width),(0,width),tikz.cycle()]
+
+class AngledBeam(Segment):
+    def __init__(self, name, offset, opts, start, end):
+        super().__init__(name, [], offset, opts)
+
+
+class Bridge():
+    def __init__(self, length, overhang, width):
+        self.length = length
+        self.width = width
+        self.segments = []
+        self.overhang_left, self.overhang_right = overhang
+        self.weight = 0
+        self.needed_material = 0
+
+class Bailey(Bridge):
+    def build(self):
+        #Bottom beam
+        self.segments.append(StaightBeam("Bottom Beam", (-self.overhang_left,0), "", self.length+self.overhang_left+self.overhang_right, self.width))
+
 
 def figdesc(name,pieces,volume,weight,totallength) -> tikz.node:
     return tikz.node(at=(length/2,-0.5),contents=f"Type:\\,{name}\\quad Pieces:\\,{pieces}\\quad Volume:\\,{volume:.2f}\\quad Weight:\\,{weight:.2f}g\\quad Total Length of Segments:\\,{totallength:.2f}cm")
