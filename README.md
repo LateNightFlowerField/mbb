@@ -54,6 +54,8 @@ mbb has a number of configurable options with more to come.
 - [ ] Add auto image and document generation
 - [ ] Improve aesthetics 
 - [ ] Refactor to use bridge and piece classes and objects
+- [ ] Create under supports
+- [ ] Cutting and joint guides
 
 ## FAQ
 
