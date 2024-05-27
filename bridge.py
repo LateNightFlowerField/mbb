@@ -400,7 +400,7 @@ def baltimore() -> None:
     area = (length+lover+rover)*width+toplen*width+(0.5*(toplen+length)*seglen-(segments-2)*pow(triside,2)*0.5-segments*pow(triside-ljoint,2)/4-segments*pow((triside-ljoint-width)/2,2))
     volume = area*width
     weight = volume*wooddensity
-    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))
+    woodlength = length+lover+rover+toplen+2*(triside/cos(pi/4)+flatjoint*cos(pi/4)+ljoint/cos(pi/4))+(segments-1)*seglen+(segments-2)*(triside/cos(pi/4)+2*ljoint/cos(pi/4))+ljoint*sin(pi/4)*segments*2+segments*(seglen/2-ljoint-ljoint*cos(pi/4))+segments*((triside/2-width/2-ljoint/2)/cos(pi/4))
     #Bottom Beam
     pic.draw(tikz.line([(-lover,0),
                         (length+rover,0),
