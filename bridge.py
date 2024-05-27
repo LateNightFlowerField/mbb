@@ -521,9 +521,9 @@ def supports(spacing, height, direction):
     for segnum in range(segments):
         offset = segnum*spacing+width
         if direction == 1:
-            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]))
+            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]),opts=globalopt())
         if direction == -1:
-            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]))
+            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]),opts=globalopt())
 
 
 
