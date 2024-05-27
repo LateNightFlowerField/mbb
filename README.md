@@ -44,7 +44,7 @@ mbb has a number of configurable options with more to come.
 - [ ] Create bridge by height and length
 - [ ] Individual part diagrams and counts
 - [ ] Micro-configuration of bridge
-- [ ] Diagrams of side connections (automatic?)
+- [x] Diagrams of side connections (automatic?)
 - [x] More truss types, and possibly arches
 - [x] Add option for adding extra per segment to total length or weight
 - [ ] Create way to specify material limits

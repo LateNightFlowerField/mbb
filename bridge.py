@@ -510,13 +510,29 @@ def baltimore() -> None:
     if not args.no_description:
         pic.path(figdesc("Baltimore",pieces,volume,weight,woodlength))
 
+def supports(spacing, height, direction):
+    for segnum in range(segments+1):
+        offset = segnum*spacing
+        pic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opts=globalopt())
+    x = sympy.symbols('x')
+    meq = sympy.Eq((ssin(satan((height-x)/(spacing-x-width)))+scos(satan((height-x)/(spacing-x-width))))*x,width)
+    suls = sympy.solveset(meq,x,domain=sympy.S.Reals)
+    ljoint = min(suls)
+    for segnum in range(segments):
+        offset = segnum*spacing+width
+        if direction == 1:
+            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]))
+        if direction == -1:
+            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]))
+
+
 
 if __name__ == "__main__":
     bridge_types = ['howe','warren','pratt','bailey','k','baltimore']
     bridge_map = {'howe':howe, 'warren':warren, 'pratt':pratt, 'bailey':bailey,'k':k, 'baltimore':baltimore}
 
     parser = argparse.ArgumentParser(prog='mmb',description='Create scale diagrams for bridges.')
-    parser.add_argument('-t','--bridge',required=True,type=str, help='type of bridge')
+    parser.add_argument('-t','--bridge',type=str,default=None, help='type of bridge')
     parser.add_argument('-w','--width',default=0.238,type=float, help='width of material in cm')
     parser.add_argument('-l','--length',default=24,type=float, help='length of bridge in cm')
     parser.add_argument('-s','--segments',default=6,choices=range(1,16),type=int, help='number of bridge segments')
@@ -528,8 +544,17 @@ if __name__ == "__main__":
     parser.add_argument('--no-description',action='store_true', help='disable stats below diagram')
     parser.add_argument('-S','--weight-per-piece',type=float, default=0.0, help='adds a configureble amount of weight per piece')
     parser.add_argument('-L','--length-per-piece',type=float, default=0.0, help='adds a configureble amount of needed material per piece')
+    parser.add_argument('--supports',action='store_true',help='draw support structure')
+    parser.add_argument('-v','--height',default=6.0,type=float,help='height of structure, currently only works for supports')
+    parser.add_argument('-x','--direction',default=1,type=int,choices=[-1,1],help='which way the support connect')
 
     args = parser.parse_args()
+
+    if args.bridge is None and not args.supports:
+        raise parser.error(f"please specify a bridge type or \'--supports\'")
+    elif args.bridge is not None and args.supports:
+        raise parser.error(f"drawing bridge and supports is currently not supported. Please choose one.")
+
     width = args.width
     length = args.length
     segments = args.segments
@@ -543,20 +568,22 @@ if __name__ == "__main__":
     bonus_weight = args.weight_per_piece
     bonus_length = args.length_per_piece
 
-    if args.bridge.lower() in ['howe','pratt','k','baltimore'] and args.segments not in range(2,16,2):
-        print("Warning! Segment number is odd.")
-
     pic = tikz.Picture()
-    if bridge_map.get(args.bridge.lower()) == None:
-        matcher = lambda word: SequenceMatcher(None,args.bridge.lower(),word).ratio()
-        withweights = {item: matcher(item) for item in bridge_types}
-        alt = sorted(withweights.items(),key=lambda t: t[1])[-1]
-        if alt[1] > 0.6:
-            raise parser.error(f"invalid bridge type: {args.bridge}, did you mean {alt[0]}? valid types are {bridge_types}")
-        else:
-            raise parser.error(f"invalid bridge type: {args.bridge}, valid types are {bridge_types}")
+    if args.bridge:
+        if args.bridge.lower() in ['howe','pratt','k','baltimore'] and args.segments not in range(2,16,2):
+            print("Warning! Segment number is odd.")
 
-    bridge_map[args.bridge.lower()]()
+        if bridge_map.get(args.bridge.lower()) == None:
+            matcher = lambda word: SequenceMatcher(None,args.bridge.lower(),word).ratio()
+            withweights = {item: matcher(item) for item in bridge_types}
+            alt = sorted(withweights.items(),key=lambda t: t[1])[-1]
+            if alt[1] > 0.6:
+                raise parser.error(f"invalid bridge type: {args.bridge}, did you mean {alt[0]}? valid types are {bridge_types}")
+            else:
+                raise parser.error(f"invalid bridge type: {args.bridge}, valid types are {bridge_types}")
+        bridge_map[args.bridge.lower()]()
+    if args.supports:
+        supports((length-width)/(segments),args.height,args.direction)
 
     if not args.write_image:
         print(pic.code())
