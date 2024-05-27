@@ -1,6 +1,7 @@
 from sympy.plotting.plot import flat
 import tikz
 from math import sin, cos, pi, sqrt, atan
+from difflib import SequenceMatcher
 import argparse
 import sympy
 from sympy import atan as satan
@@ -538,10 +539,18 @@ if __name__ == "__main__":
     ratio = args.ratio
     wooddensity = args.density
 
-    if args.bridge.lower() in ['howe','pratt','k'] and args.segments not in range(2,16,2):
+    if args.bridge.lower() in ['howe','pratt','k','baltimore'] and args.segments not in range(2,16,2):
         print("Warning! Segment number is odd.")
 
     pic = tikz.Picture()
+    if bridge_map.get(args.bridge.lower()) == None:
+        matcher = lambda word: SequenceMatcher(None,args.bridge.lower(),word).ratio()
+        withweights = {item: matcher(item) for item in bridge_types}
+        alt = sorted(withweights.items(),key=lambda t: t[1])[-1]
+        if alt[1] > 0.6:
+            raise parser.error(f"invalid bridge type: {args.bridge}, did you mean {alt[0]}? valid types are {bridge_types}")
+        else:
+            raise parser.error(f"invalid bridge type: {args.bridge}, valid types are {bridge_types}")
 
     bridge_map[args.bridge.lower()]()
 
