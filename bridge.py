@@ -7,7 +7,7 @@ import sympy
 from sympy import atan as satan
 from sympy import sin as ssin
 from sympy import cos as scos
-
+import pathlib
 
 
 def figdesc(name,pieces,volume,weight,totallength) -> tikz.node:
@@ -86,6 +86,7 @@ def bailey() -> None:
                         tikz.cycle()]),opt=globalopt())
     if not args.no_description:
         pic.path(figdesc("Bailey Truss",pieces,volume,weight,woodlength))
+    
     if spill:
         print(locals())
 
@@ -156,6 +157,8 @@ def howe() -> None:
                         (flatjoint+triside-ljoint+toplen,width+triside+ljoint+width),
                         (flatjoint+triside-ljoint,width+triside+ljoint+width),
                         tikz.cycle()]),opt=globalopt())
+    if do_supports:
+        supports((toplen-width)/(segments-2),sup_height,1,segments-2)
     if not args.no_description:
         pic.path(figdesc("Howe Truss",pieces,volume,weight,woodlength))
     if spill:
@@ -229,6 +232,8 @@ def pratt() -> None:
                         (flatjoint+triside-ljoint+toplen,width+triside+ljoint+width),
                         (flatjoint+triside-ljoint,width+triside+ljoint+width),
                         tikz.cycle()]),opt=globalopt())
+    if do_supports:
+        supports((toplen-width)/(segments-2),sup_height,1,segments-2)
     if not args.no_description:
         pic.path(figdesc("Pratt Truss",pieces,volume,weight,woodlength))
     if spill:
@@ -294,7 +299,8 @@ def warren() -> None:
                         (trilen+flatjoint-ljoint,ljoint+2*width+triheight),
                         (trilen+flatjoint-ljoint,ljoint+width+triheight)
                         ,tikz.cycle()]),opt=globalopt())
-
+    if do_supports:
+        supports((toplen-width)/(segments-1),sup_height,1,segments-1)
     if not args.no_description:
         pic.path(figdesc("Warren Truss",pieces,volume,weight,woodlength))
     if spill:
@@ -394,6 +400,9 @@ def k() -> None:
                         (length-seglen+bljoint,2*width+height),
                         (seglen-bljoint,2*width+height),
                         tikz.cycle()]),opt=globalopt())
+    toplen = length-2*seglen+2*bljoint
+    if do_supports:
+        supports((toplen-width)/(segments-2),sup_height,1,segments-2)
     if not args.no_description:
         pic.path(figdesc("K Truss",pieces,volume,weight,woodlength))
     if spill:
@@ -521,21 +530,23 @@ def baltimore() -> None:
         pic.path(figdesc("Baltimore",pieces,volume,weight,woodlength))
     if spill:
         print(locals())
+    if do_supports:
+        supports((toplen-width)/(segments-2),sup_height,1,segments-2)
 
-def supports(spacing, height, direction):
-    for segnum in range(segments+1):
+def supports(spacing, height, direction, number):
+    for segnum in range(number+1):
         offset = segnum*spacing
-        pic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opt=globalopt())
+        suppic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opt=globalopt())
     x = sympy.symbols('x')
     meq = sympy.Eq((ssin(satan((height-x)/(spacing-x-width)))+scos(satan((height-x)/(spacing-x-width))))*x,width)
     suls = sympy.solveset(meq,x,domain=sympy.S.Reals)
     ljoint = min(suls)
-    for segnum in range(segments):
+    for segnum in range(number):
         offset = segnum*spacing+width
         if direction == 1:
-            pic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]),opt=globalopt())
+            suppic.draw(tikz.line([(offset,0),(offset,ljoint),(offset+spacing-width-ljoint,height),(offset+spacing-width,height),(offset+spacing-width,height-ljoint),(offset+ljoint,0),tikz.cycle()]),opt=globalopt())
         if direction == -1:
-            pic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]),opt=globalopt())
+            suppic.draw(tikz.line([(offset+spacing-width,0),(offset+spacing-width-ljoint,0),(offset,height-ljoint),(offset,height),(offset+ljoint,height),(offset+spacing-width,ljoint),tikz.cycle()]),opt=globalopt())
     if spill:
         print(locals())
 
@@ -562,13 +573,15 @@ if __name__ == "__main__":
     parser.add_argument('-v','--height',default=6.0,type=float,help='height of structure, currently only works for supports')
     parser.add_argument('-x','--direction',default=1,type=int,choices=[-1,1],help='which way the support connect')
     parser.add_argument('-D','--debug',default=0,help='makes functions print their locals, useful for getting extra stats')
+    parser.add_argument('--write-tikz',action='store_true',help='writes to a file instead of a printing')
+    parser.add_argument('-f','--filename',help='filename to write to')
 
     args = parser.parse_args()
-
+    
     if args.bridge is None and not args.supports:
         raise parser.error(f"please specify a bridge type or \'--supports\'")
-    elif args.bridge is not None and args.supports:
-        raise parser.error(f"drawing bridge and supports is currently not supported. Please choose one.")
+    #elif args.bridge is not None and args.supports:
+    #    raise parser.error(f"drawing bridge and supports is currently not supported. Please choose one.")
 
     width = args.width
     length = args.length
@@ -583,8 +596,13 @@ if __name__ == "__main__":
     bonus_weight = args.weight_per_piece
     bonus_length = args.length_per_piece
     spill = args.debug
-
+    filename = pathlib.PurePath(args.filename)
+    do_supports = args.supports
+    sup_height = args.height
+    if args.write_tikz and not args.filename:
+        raise parser.error('filename is reuired with --write-tikz')
     pic = tikz.Picture()
+    suppic = tikz.Picture()
     if args.bridge:
         if args.bridge.lower() in ['howe','pratt','k','baltimore'] and args.segments not in range(2,16,2):
             print("Warning! Segment number is odd.")
@@ -598,10 +616,20 @@ if __name__ == "__main__":
             else:
                 raise parser.error(f"invalid bridge type: {args.bridge}, valid types are {bridge_types}")
         bridge_map[args.bridge.lower()]()
-    if args.supports:
-        supports((length-width)/(segments),args.height,args.direction)
+    if args.supports and not args.bridge:
+        supports((length-width)/(segments),args.height,args.direction,segments)
 
     if not args.write_image:
-        print(pic.code())
+        if args.write_tikz:
+            with open(filename,"w") as file:
+                file.write(pic.code())
+            if args.supports:
+                with open(f"{filename.parents[0]}/supports_{filename.parts[-1]}", "w") as file:
+                    file.write(suppic.code())
+        else:
+            if args.bridge:
+                print(pic.code())
+            if args.supports:
+                print(suppic.code())
     else:
         pic.write_image(args.write_image)
