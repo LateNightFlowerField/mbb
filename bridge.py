@@ -1,4 +1,3 @@
-from sympy.plotting.plot import flat
 import tikz
 from math import sin, cos, pi, sqrt, atan
 from difflib import SequenceMatcher
