@@ -600,7 +600,7 @@ if __name__ == "__main__":
     do_supports = args.supports
     sup_height = args.height
     if args.write_tikz and not args.filename:
-        raise parser.error('filename is reuired with --write-tikz')
+        raise parser.error('filename is required with --write-tikz')
     pic = tikz.Picture()
     suppic = tikz.Picture()
     if args.bridge:
