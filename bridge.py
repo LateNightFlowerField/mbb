@@ -596,7 +596,8 @@ if __name__ == "__main__":
     bonus_weight = args.weight_per_piece
     bonus_length = args.length_per_piece
     spill = args.debug
-    filename = pathlib.PurePath(args.filename)
+    if args.filename:
+        filename = pathlib.PurePath(args.filename)
     do_supports = args.supports
     sup_height = args.height
     if args.write_tikz and not args.filename:
