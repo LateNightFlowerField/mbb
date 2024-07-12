@@ -29,21 +29,23 @@ Warren Truss
 
 Basic Pratt truss:
 
-```
+```shell
 $ python bridge.py -t pratt
 ```
 
 
+
 Warren truss that spans 28 cm:
 
-```
+```shell
 $ python bridge.py -t warren -l 28
 ```
 
 
+
 K truss with 6 segments
 
-```
+```shell
 $ python bridge.py -t k -s 6 
 ```
 
