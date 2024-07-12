@@ -10,15 +10,24 @@ import pathlib
 
 
 def figdesc(name,pieces,volume,weight,totallength) -> tikz.node:
+    """
+    Returns the text description for a side diagram.
+    """
     return tikz.node(at=(length/2,-0.5),contents=f"Type:\\,{name}\\quad Pieces:\\,{pieces}\\quad Volume:\\,{volume:.2f}\\quad Weight:\\,{weight:.2f}g\\quad Total Length of Segments:\\,{totallength:.2f}cm")
 
 def globalopt(localopts='') -> str|None:
+    """
+    Returns the global style options joined with piece specific options
+    """
     if args.options == '' and localopts == '':
         return None
     return ",".join([args.options,localopts])
 
 
 def bailey() -> None:
+    """
+    Constructs the Bailey bridge diagram
+    """
     seglen = (length-(segments+1)*width)/segments
     ljoint = width*sin(pi/4)
     triside = (seglen/2)-ljoint
@@ -90,6 +99,9 @@ def bailey() -> None:
         print(locals())
 
 def howe() -> None:
+    """
+    Constructs the Howe bridge diagram.
+    """
     flatjoint = width/cos(pi/4)
     ljoint = width*cos(pi/4)
     triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
@@ -164,6 +176,9 @@ def howe() -> None:
         print(locals())
 
 def pratt() -> None:
+    """
+    Constructs the Pratt bridge diagram.
+    """
     flatjoint = width/cos(pi/4)
     ljoint = width*cos(pi/4)
     triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
@@ -239,6 +254,9 @@ def pratt() -> None:
         print(locals())
 
 def warren() -> None:
+    """
+    Constructs the Warren bridge diagram.
+    """
     ljoint = width/(sin(pi/3)+sin(pi/6))
     triside = (length-2*width/cos(pi/6)-(segments-1)*2*ljoint)/segments
     flatjoint = width/cos(pi/6)
@@ -306,6 +324,9 @@ def warren() -> None:
         print(locals())
 
 def k() -> None:
+    """
+    Constructs the K bridge diagram.
+    """
     bigt = atan(ratio)
     flatjoint = width/sin(bigt)
     bljoint = width/(sin(bigt)+cos(bigt))
@@ -408,6 +429,9 @@ def k() -> None:
         print(locals())
 
 def baltimore() -> None:
+    """
+    Constructs the Baltimore bridge diagram.
+    """
     flatjoint = width/cos(pi/4)
     ljoint = width*cos(pi/4)
     triside = (length-2*flatjoint-width*(segments-1)-ljoint*(segments-2))/segments
@@ -533,6 +557,9 @@ def baltimore() -> None:
         supports((toplen-width)/(segments-2),sup_height,1,segments-2)
 
 def supports(spacing, height, direction, number):
+    """
+    Creates a diagram of the supports between two bridge sides.
+    """
     for segnum in range(number+1):
         offset = segnum*spacing
         suppic.draw(tikz.line([(offset,0),(offset,height),(offset+width,height),(offset+width,0),tikz.cycle()]),opt=globalopt())
