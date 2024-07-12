@@ -21,8 +21,31 @@ Warren Truss
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/dmwarrentruss.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/lmwarrentruss.svg">
-   <img alt="The outline of a warren truss bridge." src="">
+   <img alt="The outline of a Warren truss bridge." src="">
 </picture>
+
+
+## Usage
+
+Basic Pratt truss:
+
+'''
+$ python bridge.py -t pratt
+'''
+
+
+Warren truss that spans 28 cm:
+
+'''
+$ python bridge.py -t warren -l 28
+'''
+
+K truss with 6 segments
+
+'''
+$ python bridge.py -t k -s 6 
+'''
+
 
 ## Configuration
 
@@ -61,7 +84,7 @@ mbb has a number of configurable options with more to come.
 
 1. Why use python and latex instead of x tool or language?
     
-    Because. <details>I am familiar with python and latex and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
+    Because. <details>I am familiar with python and LaTeX and they work well for my goals currently. Being able to create and print scale diagrams relies on the great typesetting LaTeX offers. If a better way comes up though I my consider porting the project.</details>
 2. What is your favorite type of bridge? <br/>
     I really like the warren because of its simplicity and symmetry.
 
