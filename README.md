@@ -3,7 +3,7 @@
 > [!NOTE]
 > This project is still being developed, information here may be inaccurate.
 
-This program aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 5 types of trusses with customizable parameters. It makes the process of designing a model bridge fast and easy.
+This program aids in creating to-scale diagrams of model bridges. It creates figures LaTeX using tikz of 6 types of trusses with editable parameters. It makes the process of designing a model bridge fast and easy.
 
 
 ## Examples
@@ -27,23 +27,19 @@ Warren Truss
 
 ## Usage
 
-Basic Pratt truss:
+**Basic Pratt truss:**
 
 ```shell
 $ python bridge.py -t pratt
 ```
 
-
-
-Warren truss that spans 28 cm:
+**Warren truss that spans 28 cm:**
 
 ```shell
 $ python bridge.py -t warren -l 28
 ```
 
-
-
-K truss with 6 segments
+**K truss with 6 segments**
 
 ```shell
 $ python bridge.py -t k -s 6 
@@ -82,6 +78,8 @@ mbb has a number of configurable options with more to come.
 - [ ] Refactor to use bridge and piece classes and objects
 - [ ] Create under supports
 - [ ] Cutting and joint guides
+- [ ] Create resources for making model bridges
+
 
 ## FAQ
 
